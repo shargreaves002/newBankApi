@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Account {
 
         @Id
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         // A list of named constant and defines a class type, Enumerations can have constructors, methods and instance variables.
         @Enumerated(EnumType.STRING)
