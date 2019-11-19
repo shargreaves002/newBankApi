@@ -95,8 +95,8 @@ public class BillController {
             statusCode = HttpStatus.NOT_FOUND;
         }else{
             response.setCode(201);
-            response.setData(new ArrayList<>(Collections.singleton(bill)));
-            billService.createBill(bill);
+            Bill createdBill = billService.createBill(bill, id);
+            response.setData(new ArrayList<>(Collections.singleton(createdBill)));
             statusCode = HttpStatus.CREATED;
         }
         return new ResponseEntity<>(response, statusCode);
