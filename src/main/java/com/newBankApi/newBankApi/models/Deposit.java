@@ -1,14 +1,15 @@
 package com.newBankApi.newBankApi.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Deposit {
 
     @Id

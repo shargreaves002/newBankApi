@@ -124,8 +124,8 @@ public class AccountController {
         }
         return new ResponseEntity<>(response, statusCode);
     }
-    @DeleteMapping("/account/{id}")
-    public ResponseEntity<?> deleteAccounts(@RequestBody Account account, @PathVariable("id") long id){
+    @DeleteMapping("/accounts/{id}")
+    public ResponseEntity<?> deleteAccounts(@PathVariable("id") long id){
         Response response = new Response();
         HttpStatus statusCode;
         if(!accountService.existsById(id)) {

@@ -1,8 +1,10 @@
 package com.newBankApi.newBankApi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -19,6 +21,16 @@ public class Account {
 
         @JsonProperty("customer_id")
         private long customerId;
+
+    @JsonIgnore
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="account_id")
+    private Set<Deposit> deposits;
+
+    @JsonIgnore
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="account_id")
+    private Set<Withdrawal> withdrawals;
 
         public Long getId() {
             return id;
@@ -53,6 +65,19 @@ public class Account {
         }
 
         public Double getBalance() {
+            Double balance = 0.0;
+            if (deposits != null) {
+                for (Deposit i : deposits) {
+                    if (i.getMedium().equals(TransactionMedium.Balance) && i.getStatus().equals(TransactionStatus.Completed))
+                        balance += i.getAmount();
+                }
+            }
+            if (withdrawals != null) {
+                for (Withdrawal i : withdrawals) {
+                    if (i.getMedium().equals(TransactionMedium.Balance) && i.getStatus().equals(TransactionStatus.Completed))
+                        balance -= i.getAmount();
+                }
+            }
             return balance;
         }
 

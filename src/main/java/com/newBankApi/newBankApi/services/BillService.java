@@ -18,8 +18,10 @@ public class BillService {
         return billsRepository.existsById(id);
     }
 
-    public void createBill(Bill bill) {
+    public Bill createBill(Bill bill, long id) {
+        bill.setAccountId(id);
         billsRepository.save(bill);
+        return bill;
     }
 
     public Bill updateBill(Long id, Bill bill) {
